@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function allCategory(){
         /* get() is used when you want to add queries and 
         all() is used to get all data, without using any condition.*/

@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Image;
 
 class BrandController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function allBrand()
     {
         $brands = Brand::latest()->paginate(5);
@@ -22,14 +28,18 @@ class BrandController extends Controller
         ]);
 
         $brand_image = $request->file('brand_image');
+        $image_upload_location = 'uploads/images/brand/';
+        /*
         $image_name = hexdec(uniqid());
         $image_extension = strtolower($brand_image->getClientOriginalExtension());
-        $brand_image_name = $image_name.".".$image_extension;
-        $image_upload_location = 'uploads/images/brand/';
-        $brand_image->move($image_upload_location, $brand_image_name);
+        $new_brand_image_name = $image_name.".".$image_extension;
+        $brand_image->move($image_upload_location, $brand_image_name); 
+        */
+        $new_brand_image_name = hexdec(uniqid()).".".strtolower($brand_image->getClientOriginalExtension());
+        Image::make($brand_image)->resize(300,200)->save($image_upload_location.$new_brand_image_name);
         $data = ([
             'brand_name' => $request->brand_name,
-            'brand_image' => $brand_image_name,
+            'brand_image' => $new_brand_image_name,
             'created_at' => Carbon::now(),
         ]);
         $brand = Brand::insert($data);
