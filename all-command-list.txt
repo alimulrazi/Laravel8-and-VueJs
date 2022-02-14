@@ -1,0 +1,5 @@
+php artisan jetstream:install livewire
+php artisan jetstream:install livewire --teams
+php artisan vendor:publish --tag=laravel-assets --ansi --force
+php artisan migrate
+npm install && npm run dev
