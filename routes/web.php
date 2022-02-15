@@ -40,9 +40,11 @@ Route::get('/brand/delete/{id}',[BrandController::class, 'deleteBrand']);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //$users = User::all();
     $users = DB::table('users')->get();
-    return view('dashboard', compact('users'));
+    return view('admin.index', compact('users'));
 })->name('dashboard');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
+Route::get('/user/logout',[BrandController::class, 'userLogout'])->name('user.logout');

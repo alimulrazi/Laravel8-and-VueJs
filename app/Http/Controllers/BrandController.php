@@ -6,6 +6,7 @@ use App\Models\Brand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Image;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
@@ -89,5 +90,11 @@ class BrandController extends Controller
     {
         $brand = Brand::find($id)->delete();
         return back()->with('success', 'Brand deleted successfully.');
+    }
+
+    public function userLogout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Successfully Logout');
     }
 }
