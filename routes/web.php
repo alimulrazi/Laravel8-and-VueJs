@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\UpdateProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\Table\Table;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,8 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $brands = DB::Table('brands')->get();
+    return view('home', compact('brands'));
 });
 
 //category controller
@@ -48,3 +51,11 @@ Route::get('/email/verify', function () {
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/user/logout',[BrandController::class, 'userLogout'])->name('user.logout');
+
+//Change password
+Route::get('/user/change-password',[UpdateProfileController::class, 'changePassword'])->name('change.password');
+Route::post('/user/update-password',[UpdateProfileController::class, 'updatePassword'])->name('update.password');
+
+// update profile
+Route::get('/user/profile-update', [UpdateProfileController::class, 'updateProfile'])->name('update.profile');
+Route::post('/user/user-profile-update', [UpdateProfileController::class, 'updateUserProfile'])->name('update.userProfile');

@@ -5,8 +5,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title></title>
+  <title>User Login</title>
 
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet"/>
@@ -61,6 +60,14 @@
               </div>
             </div>
             <div class="card-body p-5">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>{{ session('success') }}</strong>  
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            @endif
 
               <h4 class="text-dark mb-5">Sign In</h4>
                 @if (session('status'))

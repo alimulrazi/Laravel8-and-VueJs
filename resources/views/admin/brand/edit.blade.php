@@ -1,10 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
+@extends('admin.admin_layout')
+@section('content')
     <div class="py-12">
             <div class="container">
                 <div class="row">
@@ -35,7 +30,7 @@
                                     <span class="text-danger">{{ $errors->first('brand_image') }}</span>
                                 @endif
                                 <div class="col-md-12">
-                                <img src="{{ asset('uploads/images/brand/'.$brand->brand_image) }}" alt="{{$brand->brand_name}}" />
+                                <img src="{{ asset('uploads/images/brand/'.$brand->brand_image) }}" alt="{{$brand->brand_name}}" width="200" />
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">Update Brand</button>
@@ -47,4 +42,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

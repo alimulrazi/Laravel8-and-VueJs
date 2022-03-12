@@ -1,9 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('admin.admin_layout')
+@section('content')
 
     <div class="py-12">
             <div class="container">
@@ -27,7 +23,7 @@
                                 <tr>
                                 <th scope="row">{{ $brands->firstItem()+$loop->index }}</th>
                                 <td>{{$brand->brand_name}}</td>
-                                <td><img src="{{ asset('uploads/images/brand/'.$brand->brand_image) }}" alt="{{$brand->brand_name}}" /></td>
+                                <td><img src="{{ asset('uploads/images/brand/'.$brand->brand_image) }}" alt="{{$brand->brand_name}}" width="150" /></td>
                                 <td>{{Carbon\Carbon::parse($brand->created_at)->diffForHumans()}}</td>
                                 <td>
                                     <a href="{{ url('brand/edit/'.$brand->id) }}" class="btn btn-info">Edit</a>
@@ -84,4 +80,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection

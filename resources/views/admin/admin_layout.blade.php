@@ -22,7 +22,7 @@
 
   <!-- SLEEK CSS -->
   <link id="sleek-css" rel="stylesheet" href="{{ asset('admin/assets/css/sleek.css') }}" />
-
+  <link id="toster-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
   
 
   <!-- FAVICON -->
@@ -135,26 +135,26 @@
                   <!-- User Account -->
                   <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                      <img src="{{ asset('admin/assets/img/user/user.png')}}" class="user-image" alt="User Image" />
-                      <span class="d-none d-lg-inline-block">Abdus Salam</span>
+                      <img src="{{ Auth::user()->profile_photo_url }}" class="user-image" alt="User Image" />
+                      <span class="d-none d-lg-inline-block">{{ Auth::user()->name }}</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                       <!-- User image -->
                       <li class="dropdown-header">
-                        <img src="{{ asset('admin/assets/img/user/user.png')}}" class="img-circle" alt="User Image" />
+                        <img src="{{ Auth::user()->profile_photo_url }}" class="img-circle" alt="User Image" />
                         <div class="d-inline-block">
-                          Abdus Salam <small class="pt-1">abdus@gmail.com</small>
+                          {{ Auth::user()->name }} <small class="pt-1">{{ Auth::user()->email }}</small>
                         </div>
                       </li>
 
                       <li>
-                        <a href="profile.html">
+                        <a href="{{ route('update.profile')}}">
                           <i class="mdi mdi-account"></i> My Profile
                         </a>
                       </li>
                       <li>
-                        <a href="email-inbox.html">
-                          <i class="mdi mdi-email"></i> Message
+                        <a href="{{ route('change.password')}}">
+                          <i class="mdi mdi-email"></i> Change Password
                         </a>
                       </li>
                       <li>
@@ -226,9 +226,28 @@
 <script src="{{ asset('admin/assets/js/date-range.js') }}"></script>
 <script src="{{ asset('admin/assets/js/map.js') }}"></script>
 <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+@if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
 
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
 
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
 
-
-  </body>
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+  @endif
+</script>
+</body>
 </html>

@@ -44,8 +44,13 @@ class BrandController extends Controller
             'created_at' => Carbon::now(),
         ]);
         $brand = Brand::insert($data);
+
+        $notification = array(
+            'message' => 'Post created successfully!',
+            'alert-type' => 'success'
+        );
         
-       return back()->with('success', 'Brand created successfully.');
+       return back()->with($notification);
     }
 
     public function editBrand($id)
